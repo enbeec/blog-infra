@@ -1,5 +1,30 @@
 # Blog Infrastructure
 
+## A Note on Pushing
+
+You can use `github` in your spec and follow [the link in these docs]() to
+authorize DO to hook into your repo's push events.
+
+I elected to generate a 1-year token to create/update in the app platform scope.
+This gets securely set as a variable in a dead simple GitHub action using cURL.
+A pre-populated cURL command is provided as an output -- copy/paste should be
+sufficient as it isn't typical to need to recreate the app.
+
+You could, in theory, chain this together to create the required pipeline config
+(segment). My whole idea here is that I might leave GitHub and anything with a
+CI/CD that can use cURL can work with this.
+
+```shell
+curl \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $TOKEN" \
+    "https://api.digitalocean.com/v2/apps/<app_id>/deployments" \
+    -XPOST \
+    -d '{"force_build": true}'
+```
+
+`
+
 ## Inputs
 
 ### `digitalocean_ap_region`
