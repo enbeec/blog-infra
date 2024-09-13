@@ -4,8 +4,8 @@ resource "digitalocean_app" "blog" {
     region = var.digitalocean_ap_region
 
     domain {
-      name = "blog.valcurrie.com"
-      zone = "valcurrie.com"
+      name = "${var.domain_shortname}.${var.domain_zone}"
+      zone = var.domain_zone
     }
 
     static_site {

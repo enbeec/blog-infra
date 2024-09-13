@@ -9,6 +9,7 @@ output "force_build_curl" {
             -H "Authorization: Bearer $TOKEN" \
             "https://api.digitalocean.com/v2/apps/${digitalocean_app.blog.id}/deployments" \
             -XPOST \
-            -d '{"force_build": true}'
+            -d '{"force_build": true}' \
+        | grep '{"deployment":'
         EOT
 }
