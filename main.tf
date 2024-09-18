@@ -20,3 +20,9 @@ resource "digitalocean_app" "blog" {
     }
   }
 }
+
+resource "github_actions_variable" "blog_deployment_url" {
+  repository    = "blog"
+  variable_name = "DEPLOYMENT_URL"
+  value         = "https://api.digitalocean.com/v2/apps/${digitalocean_app.blog.id}/deployments"
+}
