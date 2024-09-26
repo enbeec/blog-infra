@@ -15,7 +15,7 @@ resource "digitalocean_app" "blog" {
 
       git {
         repo_clone_url = "https://github.com/enbeec/blog"
-        branch         = "main"
+        branch         = var.branch
       }
     }
   }

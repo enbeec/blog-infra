@@ -9,3 +9,8 @@ variable "domain_zone" {
 variable "domain_shortname" {
   type = string
 }
+
+variable "branch" {
+  type    = string
+  default = "main"
+}
