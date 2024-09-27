@@ -1,6 +1,6 @@
 resource "digitalocean_app" "blog" {
   spec {
-    name   = "blog"
+    name   = local.app_name
     region = var.digitalocean_ap_region
 
     domain {
@@ -9,7 +9,7 @@ resource "digitalocean_app" "blog" {
     }
 
     static_site {
-      name          = "blog"
+      name          = local.app_name
       build_command = "git submodule update --init --recursive; hugo --destination ./public"
       output_dir    = "/public"
 
@@ -25,4 +25,5 @@ resource "github_actions_variable" "blog_deployment_url" {
   repository    = "blog"
   variable_name = "DEPLOYMENT_URL"
   value         = "https://api.digitalocean.com/v2/apps/${digitalocean_app.blog.id}/deployments"
+  count = var.branch == "main" ? 1 : 0
 }
